@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindYet</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+</head>
+<body>
+    <div class="hero">
+        <h3>MindYet.</h3>
+        <h1>Empowering Your Journey to Wellness</h1>
+        <br>
+        <p>MindYet is currently undergoing renovations to bring you an enhanced wellness experience<br>Our team is hard at work crafting the ultimate destination for all things wellness. </p>
+        <br>
+        <p>Get the latest news and offers. Subscribe to our emails!</p>
+        <form name="submit-to-google-sheet">
+            <input type="email" name="Email" placeholder="Email" required>
+            <button type="submit"><img src="send-icon.png" width="30px"></button>
+        </form>
+        <span id="msg"></span>
+    </div>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbynhQF-Vn7rvoiHKGdiH2CYvzv4f1KRYSrdumTFvv7_HgQBFI3dUKZNQKtI21kRuNbgvQ/exec'
+        const form = document.forms['submit-to-google-sheet']
+        const msg = document.getElementById("msg")
+
+        form.addEventListener('submit', e => {
+          e.preventDefault()
+          fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+            .then(response => {
+                msg.innerHTML = "Thank you for subscribing! Have a great day.";
+                setTimeout(function(){
+                    msg.innerHTML = "";
+                }, 5000);
+                form.reset();
+            })
+            .catch(error => console.error('Error!', error.message))
+        })
+      </script> 
+</body>
+</html>
